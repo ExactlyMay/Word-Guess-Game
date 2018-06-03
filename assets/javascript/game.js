@@ -38,22 +38,36 @@ window.onload = function() {
     document.onkeyup = function(event) {
         // document.querySelector("#game").innerHTML = "Your last guess was: " + userInput;
         // wrongGuessesDiv.innerHTML = displayGuessesArray;
-        // console.log("Checking if in string: " + correctAnswer.toLowerCase().indexOf(userInput));
-
         var userInput = event.key;
-        displayGuessesArray.push(" " + userInput);
-        document.querySelector("#guesses").innerHTML = displayGuessesArray;
- 
-        for (var i = 0; i < gameAnswer.length; i++) {
-            if (gameAnswer[i] === userInput)
-            {
-                userAnswerArray[i] = userInput;
+        userInput = userInput.toLowerCase();
+
+        if (userInput === 'a' || userInput === 'b' || userInput === 'c' || 
+        userInput === 'd' || userInput === 'e' || userInput === 'f' || 
+        userInput === 'g' || userInput === 'h' || userInput === 'i' || 
+        userInput === 'j' || userInput === 'k' || userInput === 'l' ||
+        userInput === 'm' || userInput === 'n' || userInput === 'o' ||
+        userInput === 'p' || userInput === 'q' || userInput === 'r' ||
+        userInput === 's' || userInput === 't' || userInput === 'u' ||
+        userInput === 'v' || userInput === 'w' || userInput === 'x' ||
+        userInput === 'y' || userInput === 'z'){
+            displayGuessesArray.push(" " + userInput);
+            document.querySelector("#guesses").innerHTML = displayGuessesArray;
+     
+            for (var i = 0; i < gameAnswer.length; i++) {
+                if (gameAnswer[i] === userInput)
+                {
+                    userAnswerArray[i] = userInput;
+                }
             }
+            
+            console.log("User Answer Array: " + userAnswerArray);
+            displayString = userAnswerArray.join(" ");
+            answerDiv.innerHTML = displayString;
+        }
+        else{
+            alert("Please enter a letter. Numbers, spaces, or symbols are not valid.");
         }
         
-        console.log("User Answer Array: " + userAnswerArray);
-        displayString = userAnswerArray.join(" ");
-        answerDiv.innerHTML = displayString;
     };
 
 
