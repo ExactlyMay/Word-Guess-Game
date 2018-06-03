@@ -1,43 +1,50 @@
-window.onload = function() {
+var wins = 0;
+var wordOptions = ["apple", "pear", "plum", "banana", "strawberry"];
 
-    var wordOptions = ["apple", "pear", "plum", "banana", "strawberry"];
+
+function game() {
+    //wordOptions is our word array. gameAnswer chooses a word randomly from wordOptions.
     var gameAnswer = wordOptions[Math.floor(Math.random() * wordOptions.length)];
+    var remainingLetters = gameAnswer.length;
 
+    //
+    var winsDiv = document.getElementById('wins');
+
+    //
+    var gameAnswerArray = [];
+    var answerDiv = document.getElementById('answer');
+    
+    //
+    var displayGuessesArray = [];
+    var guessesDiv = document.getElementById('guesses');
+
+    //
+    var isCorrectOrRepeated;
+    var remainingGuesses = 5;
+
+console.log("After setting to 5: " + remainingGuesses);
+
+    var remainingDiv = document.getElementById('remaining');
     console.log("Word Guess: " + gameAnswer);
 
-    // var gameAnswerArray = [];
-    // for (var i = 0; i < gameAnswer.length; i++) {
-    //     gameAnswerArray.push(gameAnswer.charAt(i));
-    // }
-    // console.log("Game Answer Array: " + gameAnswerArray);
-
-
-
-    // var wrongGuessesDiv = document.getElementById('wrongGuesses');
-
-    var userAnswerArray = [];
-    var answerDiv = document.getElementById('answer');
-
+    //this for loop initializes the blank spaces for every letter of the word
     for (var i = 0; i < gameAnswer.length; i++) {
-        userAnswerArray.push("_");
+        gameAnswerArray.push("_");
     }
+    //
+    var displayString = gameAnswerArray.join(" ");
+    //
+    winsDiv.innerHTML = "<p>Wins: " + wins + "</p>";
+    answerDiv.innerHTML = "<p>Word: </p>" + displayString;
+    guessesDiv.innerHTML = "<p>Letters Already Guessed:</p>" + (displayGuessesArray.join(" "));
+    remainingDiv.innerHTML = "<p>Number of Guesses Remaining:</p>" + remainingGuesses; 
 
-    console.log("User Answer Array: " + userAnswerArray);
-
-
-    
-    // console.log("Blank Answer: " + blankAnswer);
-    var displayString = userAnswerArray.join(" ");
-
-    answerDiv.innerHTML = displayString;
-
-    var correctAnswer = userAnswerArray.join("");
-
-    var displayGuessesArray = [];
+console.log("After updating div: " + remainingGuesses);
 
     document.onkeyup = function(event) {
-        // document.querySelector("#game").innerHTML = "Your last guess was: " + userInput;
-        // wrongGuessesDiv.innerHTML = displayGuessesArray;
+
+        isCorrectOrRepeated = false;
+        //
         var userInput = event.key;
         userInput = userInput.toLowerCase();
 
@@ -50,26 +57,69 @@ window.onload = function() {
         userInput === 's' || userInput === 't' || userInput === 'u' ||
         userInput === 'v' || userInput === 'w' || userInput === 'x' ||
         userInput === 'y' || userInput === 'z'){
-            displayGuessesArray.push(" " + userInput);
-            document.querySelector("#guesses").innerHTML = displayGuessesArray;
-     
+            
+            // console.log(displayGuessesArray);
+            // console.log(guessesDiv.textContent);
+            
+            if (displayGuessesArray.toString().includes((userInput.toUpperCase()))){
+
+            alert("You have already guessed '" + userInput + ".' Try a different letter.");
+            isCorrectOrRepeated = true;           
+
+            }
+            else {
+                displayGuessesArray.push(" " + userInput.toUpperCase());
+                guessesDiv.innerHTML = "<p>Letters Already Guessed:</p>" + (displayGuessesArray.join(" "));
+            }
+
+            // document.querySelector("#guesses").innerHTML = displayGuessesArray;
+            // console.log("Display Array: " + displayGuessesArray);
+
             for (var i = 0; i < gameAnswer.length; i++) {
                 if (gameAnswer[i] === userInput)
                 {
-                    userAnswerArray[i] = userInput;
+                    gameAnswerArray[i] = userInput;
+                    displayString = gameAnswerArray.join(" ");
+                    answerDiv.innerHTML = "<p>Word: </p>" + displayString;
+    
+                    remainingLetters--;
+                    isCorrectOrRepeated = true;      
                 }
             }
+
+            if (gameAnswer === gameAnswerArray.join(""))
+            {
+                wins++;
+                winsDiv.innerHTML = "<p>Wins: " + wins + "</p>";
+                alert("You win!");
+                remainingGuesses = 5;
+                game();
+            }
+
+            if (isCorrectOrRepeated){
+                remainingDiv.innerHTML = "<p>Number of Guesses Remaining:</p>" + remainingGuesses; 
+            }
+            else {
+                remainingGuesses--;
+                remainingDiv.innerHTML = "<p>Number of Guesses Remaining:</p>" + remainingGuesses; 
+            }
+
+            if (remainingGuesses <= 0){
+                alert("You lose!");
+
+                console.log("After alert: " + remainingGuesses);
+                game();
+                console.log("After game() when lose: " + remainingGuesses);
+
+            }
             
-            console.log("User Answer Array: " + userAnswerArray);
-            displayString = userAnswerArray.join(" ");
-            answerDiv.innerHTML = displayString;
         }
+
         else{
             alert("Please enter a letter. Numbers, spaces, or symbols are not valid.");
-        }
-        
+        }        
+    // console.log(gameAnswer);
+    // console.log((gameAnswerArray.join("")));
     };
-
-
 
 }

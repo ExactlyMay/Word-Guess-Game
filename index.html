@@ -8,21 +8,19 @@
     <link rel="stylesheet" type="text/css" media="screen" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" />
     <script type="text/javascript" src="assets/javascript/game.js"></script>
 </head>
-<body>
-    <div class = "container">
+<body onload="game();">
+
+<div class = "container">
     <h1>Word Guess Game</h1>
     <p>Press any key to get started!</p>
-
-    <p>Word: </p>
-
-    <div id="answer">
-    </div>
-    <p>Letters Already Guessed:</p>
-    <div id="guesses">
-    </div>
-    <p>Number of Guesses Remaining:</p>
-    <div id="remaining">
-    </div>
+    
+    <div id="wins"></div>
+    <br>
+    <div id="answer"></div>
+    <br>
+    <div id="guesses"></div>
+    <br>
+    <div id="remaining"></div>
     
 </div>
 
