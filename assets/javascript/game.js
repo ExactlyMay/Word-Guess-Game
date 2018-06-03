@@ -21,11 +21,7 @@ function game() {
     //
     var isCorrectOrRepeated;
     var remainingGuesses = 5;
-
-console.log("After setting to 5: " + remainingGuesses);
-
     var remainingDiv = document.getElementById('remaining');
-    console.log("Word Guess: " + gameAnswer);
 
     //this for loop initializes the blank spaces for every letter of the word
     for (var i = 0; i < gameAnswer.length; i++) {
@@ -38,8 +34,6 @@ console.log("After setting to 5: " + remainingGuesses);
     answerDiv.innerHTML = "<p>Word: </p>" + displayString;
     guessesDiv.innerHTML = "<p>Letters Already Guessed:</p>" + (displayGuessesArray.join(" "));
     remainingDiv.innerHTML = "<p>Number of Guesses Remaining:</p>" + remainingGuesses; 
-
-console.log("After updating div: " + remainingGuesses);
 
     document.onkeyup = function(event) {
 
@@ -57,10 +51,7 @@ console.log("After updating div: " + remainingGuesses);
         userInput === 's' || userInput === 't' || userInput === 'u' ||
         userInput === 'v' || userInput === 'w' || userInput === 'x' ||
         userInput === 'y' || userInput === 'z'){
-            
-            // console.log(displayGuessesArray);
-            // console.log(guessesDiv.textContent);
-            
+                        
             if (displayGuessesArray.toString().includes((userInput.toUpperCase()))){
 
             alert("You have already guessed '" + userInput + ".' Try a different letter.");
@@ -71,10 +62,7 @@ console.log("After updating div: " + remainingGuesses);
                 displayGuessesArray.push(" " + userInput.toUpperCase());
                 guessesDiv.innerHTML = "<p>Letters Already Guessed:</p>" + (displayGuessesArray.join(" "));
             }
-
-            // document.querySelector("#guesses").innerHTML = displayGuessesArray;
-            // console.log("Display Array: " + displayGuessesArray);
-
+            
             for (var i = 0; i < gameAnswer.length; i++) {
                 if (gameAnswer[i] === userInput)
                 {
@@ -106,20 +94,12 @@ console.log("After updating div: " + remainingGuesses);
 
             if (remainingGuesses <= 0){
                 alert("You lose!");
-
-                console.log("After alert: " + remainingGuesses);
                 game();
-                console.log("After game() when lose: " + remainingGuesses);
-
-            }
-            
+            }   
         }
-
         else{
             alert("Please enter a letter. Numbers, spaces, or symbols are not valid.");
         }        
-    // console.log(gameAnswer);
-    // console.log((gameAnswerArray.join("")));
     };
 
 }
