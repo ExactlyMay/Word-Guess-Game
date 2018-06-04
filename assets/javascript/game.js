@@ -15,17 +15,19 @@ var tuvokAudio = new Audio('assets/audio/tuvok.mp3');
 
 function game() {
 
-    //wordOptions is our word array. gameAnswer chooses a word randomly from wordOptions.
+    //wordOptions is our word array, gameAnswer chooses a word randomly from wordOptions
     var gameAnswer = wordOptions[Math.floor(Math.random() * wordOptions.length)];
     var remainingLetters = gameAnswer.length;
 
-    //
+    //remaining guesses, an array for the game answer, 
+    //the array to display the current status of the user's guesses
+    //boolean to prevent a decrement when guessing the same letter or repeated letter
     var remainingGuesses = 5;
     var gameAnswerArray = [];
     var displayGuessesArray = [];
     var isCorrectOrRepeated;
 
-
+    //all divs needed to update the game
     var clueDiv = document.getElementById('clue');
     var winsDiv = document.getElementById('wins');
     var answerDiv = document.getElementById('answer');
@@ -37,19 +39,23 @@ function game() {
 	for (var i = 0; i < gameAnswer.length; i++) {
 		gameAnswerArray.push("_");
 	}
-	//
-	var displayString = gameAnswerArray.join(" ");
-	//
+	//this string is the progress of the answer being completed
+    var displayString = gameAnswerArray.join(" ");
+    
+	//defining all the divs with the inital and updated values
 	clueDiv.innerHTML = "<h3>Theme: Characters</h3>";
 	winsDiv.innerHTML = "<h3>Wins: " + wins + "</h3>";
 	answerDiv.innerHTML = "<h3>Word: " + displayString + "</h3>";
 	guessesDiv.innerHTML = "<h3>Letters Already Guessed: " + (displayGuessesArray.join(" ")) + "</h3>";
 	remainingDiv.innerHTML = "<h3>Number of Guesses Remaining: " + remainingGuesses + "</h3>";
-	document.onkeyup = function(event) {
+    
+    //user inputs a letter
+    document.onkeyup = function(event) {
 		isCorrectOrRepeated = false;
-		//
 		var userInput = event.key;
-		userInput = userInput.toLowerCase();
+        userInput = userInput.toLowerCase();
+        
+        //this statement only accepts letters, no special chars
 		if (userInput === 'a' || userInput === 'b' || userInput === 'c' || userInput === 'd' || userInput === 'e' || userInput === 'f' || userInput === 'g' || userInput === 'h' || userInput === 'i' || userInput === 'j' || userInput === 'k' || userInput === 'l' || userInput === 'm' || userInput === 'n' || userInput === 'o' || userInput === 'p' || userInput === 'q' || userInput === 'r' || userInput === 's' || userInput === 't' || userInput === 'u' || userInput === 'v' || userInput === 'w' || userInput === 'x' || userInput === 'y' || userInput === 'z') {
 			if (displayGuessesArray.toString().includes((userInput.toUpperCase()))) {
 				isCorrectOrRepeated = true;
