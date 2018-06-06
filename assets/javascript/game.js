@@ -1,4 +1,5 @@
 var wins = 0;
+var losses = 0;
 var wordOptions = ["tuvok", "janeway", "seven", "chakotay", "neelix", "doctor", "kes", "torres", "paris"];
 
 //all audio files, including a title audio and all answers' audio files
@@ -44,7 +45,7 @@ function game() {
     
 	//defining all the divs with the inital and updated values
 	clueDiv.innerHTML = "<h3>Theme: Characters</h3>";
-	winsDiv.innerHTML = "<h3>Wins: " + wins + "</h3>";
+	winsDiv.innerHTML = "<h3>Wins: " + wins + "</h3>" + "<h3>Losses: " + losses + "</h3>";
 	answerDiv.innerHTML = "<h3>Word: " + displayString + "</h3>";
 	guessesDiv.innerHTML = "<h3>Letters Already Guessed: " + (displayGuessesArray.join(" ")) + "</h3>";
 	remainingDiv.innerHTML = "<h3>Number of Guesses Remaining: " + remainingGuesses + "</h3>";
@@ -74,8 +75,7 @@ function game() {
 			}
 			if (gameAnswer === gameAnswerArray.join("")) {
 				wins++;
-				winsDiv.innerHTML = "<h3>Wins: " + wins + "</h3>";
-				// $('#winModal').modal('show');
+				winsDiv.innerHTML = "<h3>Wins: " + wins + "</h3>" + "<h3>Losses: " + losses + "</h3>";
 				switch (gameAnswer) {
 					case "tuvok":
 						photoDiv.innerHTML = "<img src='assets/images/tuvok.gif' class='rounded mx-auto d-block' class='img-fluid' style='width: 280px; height: 280px'>" + "<h2>Tuvok</h2>";
@@ -115,6 +115,8 @@ function game() {
 						break;
 				}
 				remainingGuesses = 5;
+				// $('#winModal').modal('show');
+
 				game();
 			}
 			if (isCorrectOrRepeated) {
@@ -125,11 +127,13 @@ function game() {
 			}
 			if (remainingGuesses <= 0) {
 				// $('#loseModal').modal('show');
+				losses++;
 				game();
 			}
 		}
-		// else{
-		//     $('#letterModal').modal('show');
-		// }        
+		else{
+			
+		    // $('#letterModal').modal('show');
+		}        
 	};
 }
